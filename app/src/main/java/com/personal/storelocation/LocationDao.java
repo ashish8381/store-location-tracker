@@ -13,4 +13,8 @@ public interface LocationDao {
 
     @Query("SELECT * FROM location_table ORDER BY timestamp ASC")
     List<LocationEntity> getAllLocations();
+
+    @Query("SELECT * FROM location_table WHERE timestamp BETWEEN :start AND :end")
+    List<LocationEntity> getLocationsBetween(long start, long end);
+
 }

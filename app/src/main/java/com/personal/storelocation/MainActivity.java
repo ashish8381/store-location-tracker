@@ -1,6 +1,7 @@
 package com.personal.storelocation;
 
 import android.Manifest;
+import android.app.DatePickerDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +12,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,8 +31,11 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Polyline;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,6 +51,10 @@ public class MainActivity extends AppCompatActivity {
     private static final int FOREGROUND_PERMISSION_REQUEST_CODE = 101;
     private static final int BACKGROUND_PERMISSION_REQUEST_CODE = 102;
 
+    private TextView tvSelectedDate;
+    private ImageView btnPrevDate, btnNextDate;
+    private Calendar selectedCalendar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +62,53 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: Initializing");
         setContentView(R.layout.activity_main);
 
+        tvSelectedDate = findViewById(R.id.tvSelectedDate);
+        btnPrevDate = findViewById(R.id.btnPrevDate);
+        btnNextDate = findViewById(R.id.btnNextDate);
+        selectedCalendar = Calendar.getInstance();
+
         checkAndRequestPermissions();
+
+        btnPrevDate.setOnClickListener(v -> {
+            selectedCalendar.add(Calendar.DAY_OF_MONTH, -1);
+            updateSelectedDateText();
+            loadStoredRoute();
+        });
+
+        btnNextDate.setOnClickListener(v -> {
+            Calendar today = Calendar.getInstance();
+            Calendar nextDate = (Calendar) selectedCalendar.clone();
+            nextDate.add(Calendar.DAY_OF_MONTH, 1);
+
+            if (!nextDate.after(today)) {
+                selectedCalendar = nextDate;
+                updateSelectedDateText();
+                loadStoredRoute();
+            } else {
+                Toast.makeText(MainActivity.this, "You can't select a future date", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        tvSelectedDate.setOnClickListener(v -> {
+            int year = selectedCalendar.get(Calendar.YEAR);
+            int month = selectedCalendar.get(Calendar.MONTH);
+            int day = selectedCalendar.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog dialog = new DatePickerDialog(MainActivity.this, (view, y, m, d) -> {
+                selectedCalendar.set(Calendar.YEAR, y);
+                selectedCalendar.set(Calendar.MONTH, m);
+                selectedCalendar.set(Calendar.DAY_OF_MONTH, d);
+                updateSelectedDateText();
+                loadStoredRoute();
+            }, year, month, day);
+
+            dialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+
+            dialog.show();
+        });
+
+        updateSelectedDateText();
 
         map = findViewById(R.id.map);
         Configuration.getInstance().load(getApplicationContext(),
@@ -87,10 +143,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void updateSelectedDateText() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
+        tvSelectedDate.setText(sdf.format(selectedCalendar.getTime()));
+    }
+
+
     private void checkAndRequestPermissions() {
         Log.d(TAG, "Checking permissions...");
 
         List<String> foregroundPermissions = new ArrayList<>();
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
             foregroundPermissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
@@ -100,13 +163,6 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE &&
                 ContextCompat.checkSelfPermission(this, "android.permission.FOREGROUND_SERVICE_LOCATION") != PackageManager.PERMISSION_GRANTED)
             foregroundPermissions.add("android.permission.FOREGROUND_SERVICE_LOCATION");
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
-                ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
-                        != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 101);
-        }
-
 
         if (!foregroundPermissions.isEmpty()) {
             Log.d(TAG, "Requesting foreground permissions");
@@ -122,6 +178,11 @@ public class MainActivity extends AppCompatActivity {
                         BACKGROUND_PERMISSION_REQUEST_CODE);
             } else {
                 Log.d(TAG, "All permissions granted. Starting location service.");
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+                        ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                                != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 101);
+                }
                 startLocationService();
             }
         }
@@ -134,36 +195,53 @@ public class MainActivity extends AppCompatActivity {
         ContextCompat.startForegroundService(this, serviceIntent);
     }
 
+    private long getStartOfDay(long timestamp) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(timestamp);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTimeInMillis();
+    }
+
+    private long getEndOfDay(long timestamp) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(timestamp);
+        cal.set(Calendar.HOUR_OF_DAY, 23);
+        cal.set(Calendar.MINUTE, 59);
+        cal.set(Calendar.SECOND, 59);
+        cal.set(Calendar.MILLISECOND, 999);
+        return cal.getTimeInMillis();
+    }
+
+
     private void loadStoredRoute() {
         Executors.newSingleThreadExecutor().execute(() -> {
-            List<LocationEntity> list = db.locationDao().getAllLocations();
+            long startOfDay = getStartOfDay(selectedCalendar.getTimeInMillis());
+            long endOfDay = getEndOfDay(selectedCalendar.getTimeInMillis());
+
+            List<LocationEntity> list = db.locationDao().getLocationsBetween(startOfDay, endOfDay);
             List<GeoPoint> points = new ArrayList<>();
 
             for (LocationEntity l : list) {
-                Log.d("MAP_LOAD", "DB point: " + l.latitude + ", " + l.longitude);
                 points.add(new GeoPoint(l.latitude, l.longitude));
             }
 
             runOnUiThread(() -> {
+                routeLine.setPoints(points);
                 if (!points.isEmpty()) {
-                    routeLine.setPoints(points);
-
-                    // Move marker to last point
                     GeoPoint lastPoint = points.get(points.size() - 1);
                     currentLocationMarker.setPosition(lastPoint);
                     currentLocationMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-
                     map.getController().setZoom(18.0);
                     map.getController().setCenter(lastPoint);
-
-                    map.invalidate(); // Force redraw
-                    Log.d("MAP_LOAD", "Map centered on: " + lastPoint);
-                } else {
-                    Log.w("MAP_LOAD", "No points to draw");
+                    map.invalidate();
                 }
             });
         });
     }
+
 
 
     private final BroadcastReceiver locationUpdateReceiver = new BroadcastReceiver() {
