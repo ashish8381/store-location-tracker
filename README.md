@@ -39,7 +39,7 @@ StoreLocation/
 1. Clone the Repo
 
 ```bash
-git clone https://github.com/yourusername/store-location-tracker.git
+git clone https://github.com/ashish8381/store-location-tracker.git
 cd store-location-tracker
 ```
 
@@ -83,4 +83,4 @@ MIT License. Free to use and modify.
 
 ## 🙋‍♂️ Author
 
-**Ashish** – [@ashish](https://github.com/yourusername)
+**Ashish** – [@ashish](https://github.com/ashish8381)
