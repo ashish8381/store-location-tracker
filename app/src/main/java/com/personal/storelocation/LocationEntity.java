@@ -1,5 +1,7 @@
 package com.personal.storelocation;
 
+import androidx.annotation.Nullable;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -10,5 +12,13 @@ public class LocationEntity {
     public double latitude;
     public double longitude;
     public long timestamp;
+
+    @ColumnInfo(name = "is_checkpoint")
+    public boolean isCheckpoint;
+
+    @Nullable
+    @ColumnInfo(name = "note")
+    public String note;
+
 }
 

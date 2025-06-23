@@ -1,0 +1,724 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Title -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="16dp"
+            android:text="Settings"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- LOCATION & PERMISSIONS -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:paddingBottom="8dp"
+            android:text="Location &amp; Permissions"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/locationicon" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Background Location"
+                    android:textSize="14sp"
+                    android:textColor="#000000"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Allow the app to access your location in the background"
+                    android:textSize="12sp"
+                    android:textColor="#666666"
+                    android:maxLines="2"
+                    android:ellipsize="end" />
+            </LinearLayout>
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/ic_accuracy" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Location Accuracy: High Accuracy"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp"
+            android:text="Update Interval (1s to 60s)"
+            android:textSize="13sp" />
+
+        <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="60"
+            android:progress="1" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Minimum Distance Change (meters)"
+            android:inputType="number" />
+
+        <!-- TRACKING -->
+        <TextView
+            style="@style/SectionTitle"
+            android:text="Tracking Preferences" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/ic_boot" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Start Tracking on Boot"
+                    android:textSize="14sp"
+                    android:textColor="#000000"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Start tracking automatically when your device boots up"
+                    android:textSize="12sp"
+                    android:textColor="#666666"
+                    android:maxLines="2"
+                    android:ellipsize="end" />
+            </LinearLayout>
+
+
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/ic_notiff" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Show Notification While "
+                    android:textSize="14sp"
+                    android:textColor="#000000"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Show a persistent notification while tracking"
+                    android:textSize="12sp"
+                    android:textColor="#666666"
+                    android:maxLines="2"
+                    android:ellipsize="end" />
+            </LinearLayout>
+
+
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/ic_zoom" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Auto-Zoom to Current "
+                    android:textSize="14sp"
+                    android:textColor="#000000"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Automatically center the map on your current location"
+                    android:textSize="12sp"
+                    android:textColor="#666666"
+                    android:maxLines="2"
+                    android:ellipsize="end" />
+            </LinearLayout>
+
+
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/ic_datee" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Clear Route on Date Change"
+                    android:textSize="14sp"
+                    android:textColor="#000000"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Clear the tracked route when the date changes"
+                    android:textSize="12sp"
+                    android:textColor="#666666"
+                    android:maxLines="2"
+                    android:ellipsize="end" />
+            </LinearLayout>
+
+
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!-- MAP APPEARANCE -->
+        <TextView
+            style="@style/SectionTitle"
+            android:text="Map Appearance" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/ic_maptile" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Map Tile Source"
+                    android:textSize="14sp"
+                    android:textColor="#000000"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select the source for map tiles"
+                    android:textSize="12sp"
+                    android:textColor="#666666"
+                    android:maxLines="2"
+                    android:ellipsize="end" />
+            </LinearLayout>
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mapnik"
+                android:layout_marginEnd="10dp"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/locationicon" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Checkpoint Icon"
+                    android:textSize="14sp"
+                    android:textColor="#000000"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Choose the icon for checkpoints on the map"
+                    android:textSize="12sp"
+                    android:textColor="#666666"
+                    android:maxLines="2"
+                    android:paddingEnd="10dp"
+                    android:ellipsize="end" />
+            </LinearLayout>
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Red Pin"
+                android:layout_marginEnd="10dp"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/customMarkerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:text="Upload Custom Marker Icon"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            app:cornerRadius="10dp"
+            app:backgroundTint="#F0F2F5"
+            android:layout_gravity="start"/>
+
+
+        <!-- DATA CONTROL -->
+        <TextView
+            style="@style/SectionTitle"
+            android:text="Data Control" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/ic_autodlt" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Auto Delete After (days)"
+                    android:textSize="14sp"
+                    android:textColor="#000000"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Automatically delete stored data after a certain period"
+                    android:textSize="12sp"
+                    android:textColor="#666666"
+                    android:maxLines="2"
+                    android:paddingEnd="10dp"
+                    android:ellipsize="end" />
+            </LinearLayout>
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="7"
+                android:layout_marginEnd="10dp"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:text="Clear All Stored Data"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            app:cornerRadius="10dp"
+            app:backgroundTint="#F0F2F5"
+            android:layout_gravity="start"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:text="Export Route Data (CSV / JSON)"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            app:cornerRadius="10dp"
+            app:backgroundTint="#F0F2F5"
+            android:layout_gravity="start"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:text="Import Checkpoints (CSV / JSON)"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            app:cornerRadius="10dp"
+            app:backgroundTint="#F0F2F5"
+            android:layout_gravity="start"/>
+
+        <!-- REPLAY SETTINGS -->
+        <TextView
+            style="@style/SectionTitle"
+            android:text="Replay Settings" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp"
+            android:text="Replay Speed (100ms to 2000ms): 100ms"
+            android:textSize="13sp" />
+
+        <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="2000"
+            android:progress="100" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/ic_hrsummary" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Show Hourly Summary by "
+                    android:textSize="14sp"
+                    android:textColor="#000000"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Show an hourly summary of the tracked route by default"
+                    android:textSize="12sp"
+                    android:textColor="#666666"
+                    android:maxLines="2"
+                    android:ellipsize="end" />
+            </LinearLayout>
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!-- THEME -->
+        <TextView
+            style="@style/SectionTitle"
+            android:text="Theme" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:orientation="horizontal">
+
+            <RadioButton android:text="Light"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                />
+
+            <RadioButton android:text="Dark"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                />
+
+            <RadioButton android:text="System Default"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                />
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/ic_night" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Enable Night Map Mode"
+                    android:textSize="14sp"
+                    android:textColor="#000000"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Use a map style optimized for nighttime viewing"
+                    android:textSize="12sp"
+                    android:textColor="#666666"
+                    android:maxLines="2"
+                    android:ellipsize="end" />
+            </LinearLayout>
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!-- ABOUT -->
+        <TextView
+            style="@style/SectionTitle"
+            android:text="About" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/ic_about" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="App Version: 1.0.0"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:text="Contact Developer"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            app:cornerRadius="10dp"
+            app:backgroundTint="#F0F2F5"
+            android:layout_gravity="start"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:text="View Open Source Licenses"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            app:cornerRadius="10dp"
+            app:backgroundTint="#F0F2F5"
+            android:layout_gravity="start"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:text="Send Feedback"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            app:cornerRadius="10dp"
+            app:backgroundTint="#F0F2F5"
+            android:layout_gravity="start"/>
+
+    </LinearLayout>
+</ScrollView>
