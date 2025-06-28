@@ -68,8 +68,8 @@
             android:layout_height="38dp"
             android:layout_gravity="center"
             android:layout_marginEnd="20dp"
-            android:src="@drawable/emergency_share_off_24px"
             android:contentDescription="Emergency Share"
+            android:src="@drawable/emergency_share_off_24px"
             android:padding="4dp" />
 
         <ImageView

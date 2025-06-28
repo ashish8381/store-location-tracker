@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
     private GeoPoint lastClickedPoint;
 
-    boolean isenabled = false;
+    boolean isbtnclicked = false;
 
     ImageView mserviceEnable, btnSetting;
 
@@ -134,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                isbtnclicked=true;
                 boolean newState = !isServiceEnabled(MainActivity.this);
 
                 // Optionally start/stop service
@@ -186,6 +188,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (isServiceEnabled(MainActivity.this)) {
             checkAndRequestPermissions();
+        }else{
+            updateServiceIcon(mserviceEnable, false);
         }
 
 
@@ -256,8 +260,12 @@ public class MainActivity extends AppCompatActivity {
     private void updateServiceIcon(ImageView imageView, boolean isEnabled) {
         if (isEnabled) {
             imageView.setImageResource(R.drawable.emergency_share_24px); // your enabled icon
+            imageView.setColorFilter(ContextCompat.getColor(this, R.color.green), PorterDuff.Mode.SRC_IN);
+
         } else {
             imageView.setImageResource(R.drawable.emergency_share_off_24px); // your disabled icon
+            imageView.setColorFilter(ContextCompat.getColor(this, R.color.red), PorterDuff.Mode.SRC_IN);
+
         }
     }
 
@@ -499,13 +507,18 @@ public class MainActivity extends AppCompatActivity {
 
         Intent i = new Intent(this, LocationService.class);
         ContextCompat.startForegroundService(this, i);
-        boolean newState = !isServiceEnabled(MainActivity.this);
+        boolean newState ;
+        if(isbtnclicked){
+            newState= !isServiceEnabled(MainActivity.this);
+        }else{
+            newState= isServiceEnabled(MainActivity.this);
+        }
         saveServiceState(MainActivity.this, newState);
         updateServiceIcon(mserviceEnable, newState);
         Toast.makeText(MainActivity.this, "Location service started.", Toast.LENGTH_SHORT).show();
 
         Log.e(TAG, "startLocationService: " + isServiceEnabled(MainActivity.this));
-
+        isbtnclicked=false;
 
     }
 
